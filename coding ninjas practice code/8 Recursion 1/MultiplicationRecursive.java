@@ -2,7 +2,7 @@ import java.io.*;
 public class MultiplicationRecursive{
 
 	public static int multiplyTwoIntegers(int m, int n){
-		return n == 0 ? 0 : m + multiplyTwoIntegers(m,n-1);  
+		return n == 0 || m == 0 ? 0 : m + multiplyTwoIntegers(m,n-1);  
 	}
 
 	public static void main(String[]args)throws IOException{
