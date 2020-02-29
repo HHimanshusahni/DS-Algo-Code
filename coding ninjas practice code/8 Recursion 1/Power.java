@@ -8,6 +8,8 @@ public class Power{
 	}
 
 
+
+	// https://www.geeksforgeeks.org/write-a-c-program-to-calculate-powxn/
 	//Divide and conquer
 	// O(n) Recurrence Relation : T(n)  = 2T(n/2) + 1
 	public static int power_2(int x, int n){
