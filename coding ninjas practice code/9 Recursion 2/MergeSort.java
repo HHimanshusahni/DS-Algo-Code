@@ -13,7 +13,7 @@ public class MergeSort{
 		int mid = (start+end)/2;
 		mergeSort(arr,start,mid);
 		mergeSort(arr,mid+1,end);
-		merge(arr,start,end);
+		merge_2(arr,start,end);
 	}
 	public static void merge(int arr[],int start,int end){
 		// Make two temporary arrays
@@ -44,6 +44,28 @@ public class MergeSort{
 		while(j<temp2.length)
 			arr[k++] = temp2[j++];
 
+	}
+
+	public static void merge_2(int arr[],int start,int end){
+		int ans [] = new int[end-start+1];
+		int mid = (start+end)/2;
+		int i = start,j = mid+1;
+		int k = 0;
+		while(i<=mid &&  j<=end){
+			if(arr[i]<=arr[j])
+				ans[k++] = arr[i++];
+			else
+				ans[k++] = arr[j++];
+
+		}
+		while(i<=mid)
+			ans[k++] = arr[i++];
+		while(j<=end)
+			ans[k++] = arr[j++];
+
+		for(int index = 0;index<ans.length;index++){
+			arr[start+index] = ans[index] ;
+		}
 	}
 	public static void main(String args[])throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
