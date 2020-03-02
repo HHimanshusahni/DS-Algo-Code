@@ -2,16 +2,10 @@ import java.io.*;
 public class KeypadCombinations{
 	public static final  String KEYS[] = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
 	public static String[] keypad(int n){
-		// base case
-		if(n/10 == 0){
-			String [] output = KEYS[n].split("");
-			// or 
-			//String s = KEYS[n];
-			//String [] output = new String[s.length()];
-			//for(int i = 0;i<s.length();i++)
-			//output[i] = s.charAt(i)+"";
-			
-			return output; 
+		// base case 
+		if(n == 0){
+			String[] output = {""};
+			return output;
 		}
 
 		// Recursive case
