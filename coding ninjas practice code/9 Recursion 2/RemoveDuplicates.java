@@ -3,7 +3,7 @@ public class RemoveDuplicates{
 	// approach 		strin|g
 	public static String removeConsecutiveDuplicates(String s){
 		// base case
-		if(s.length() == 1)
+		if(s.length() <= 1)
 			return s;
 		// Recursive case
 		String smallAns = removeConsecutiveDuplicates(s.substring(0,s.length()-1));
