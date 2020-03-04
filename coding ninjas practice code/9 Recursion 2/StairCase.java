@@ -28,11 +28,28 @@ public class StairCase{
 		return arr[n];
 	}
 	
+	//Dynamic programming O(n) time complexity
+	public static int findWays_3(int n){
+		if(n==1)
+			return 1;
+		if(n==2)
+			return 2;
+		if(n==3)
+			return 4;
+		int arr[] = new int[n+1]; 
+		arr[1] = 1;
+		arr[2] = 2;
+		arr[3] = 4;
+		for(int i = 4;i<n+1;i++){
+			arr[i] = arr[i-1] + arr[i-2]+arr[i-3];
+		}
+		return arr[n];
+	}
 
 	public static void main(String[]args)throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
-		System.out.println(findWays_2(n));
+		System.out.println(findWays_3(n));
 
 	}
 }
