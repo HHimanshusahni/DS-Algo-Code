@@ -13,13 +13,26 @@ public class StairCase{
 		return findWays(n-1) + findWays(n-2) + findWays(n-3);
 
 	}
-
+		// Using Memoization
+	public static int findWays_2(int n ){
+		int arr[] = new int[n+1]; 
+		arr[1] = 1;
+		arr[2] = 2;
+		arr[3] = 4;
+	   return findWays_2(n,arr);
+	}
+	public static int findWays_2(int n ,int arr[]){
+		if(arr[n]!=0)
+			return arr[n];
+		arr[n] =  findWays_2(n-1,arr) + findWays_2(n-2,arr) + findWays_2(n-3,arr);
+		return arr[n];
+	}
 	
 
 	public static void main(String[]args)throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
-		System.out.println(findWays(n));
+		System.out.println(findWays_2(n));
 
 	}
 }
