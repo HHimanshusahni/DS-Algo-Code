@@ -5,16 +5,12 @@ public class CheckAB{
 		if(input.length() == 0)
 			return true;
 		// Recursive case and small caluculation
-		if(input.charAt(0)=='a'){
-			if(input.length()>=3 && input.charAt(1) =='b'){
-				if(input.charAt(2) == 'b'){
-					return checkAB(input.substring(3));
-				}
-				return false;
-			}else
+		if(input.charAt(0)=='a')
+			if(input.length()>=3 && input.charAt(1) =='b' && input.charAt(2) == 'b')
+				return checkAB(input.substring(3));
+			else
 				return checkAB(input.substring(1));
-
-		}else
+		else
 			return false;
 	}
 	public static void main(String[]args)throws IOException{
