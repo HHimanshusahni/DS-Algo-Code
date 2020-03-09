@@ -29,20 +29,16 @@ public class QuickSort{
 		//Putting the elements which are less than the pivot to left and greater to the right
 		int i = si , j = ei;
 		while(i<index && j>index){
-			if(input[i]<=pivot && input[j]>pivot){
+			if(input[i]<=pivot){
 				i++;
+			}else if(input[j]>pivot){
 				j--;
-			}else if(input[i]>pivot && input[j]<=pivot){
-				//swap
-				 temp = input[i];
+			}else {
+			    temp = input[i];
 				input[i] = input[j];
 				input[j] = temp;
 				i++;
 				j--;
-			}else if(input[i]>pivot){
-				j--;
-			}else{
-				i++;
 			}
 		}
 		return index;
