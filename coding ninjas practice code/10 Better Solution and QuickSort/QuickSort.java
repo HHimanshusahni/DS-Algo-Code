@@ -5,7 +5,7 @@ public class QuickSort{
 	}
 	public static void quickSort(int input[],int si, int ei){
 		if(si<ei){
-			int p = partition(input,si,ei);
+			int p = partition_2(input,si,ei);
 			quickSort(input,si,p-1);
 			quickSort(input,p+1,ei);
 		}
@@ -42,6 +42,25 @@ public class QuickSort{
 			}
 		}
 		return index;
+	}
+	public static int partition_2(int input[],int si,int ei){
+		int pivot = input[ei];
+		int i = si-1;
+		int j = si;
+		while(j<ei){
+			if(input[j]<=pivot){
+				//swap
+				i++;
+				int temp = input[i];
+				input[i] = input[j];
+				input[j] = temp;
+			}
+			j++;
+		}
+		//swap i+1 element with pivot element
+		input[ei] = input[i+1];
+		input[i+1] = pivot;
+		return i+1;
 	}
 
 	public static void main(String[] args) throws IOException{
