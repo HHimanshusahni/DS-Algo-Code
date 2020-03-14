@@ -10,8 +10,8 @@ public class Polynomial{
 		if(degree<MAX_SIZE){
 			this.coeff[degree] = coeff;
 		}else{
-			MAX_SIZE = degree;
-			int newcoeff[] = new int[degree];
+			MAX_SIZE = degree+1;
+			int newcoeff[] = new int[degree+1];
 			for(int i = 0;i<this.coeff.length;i++)
 				newcoeff[i] = this.coeff[i];
 			newcoeff[degree] = coeff;
@@ -34,10 +34,11 @@ public class Polynomial{
 	}
 	public Polynomial multiply(Polynomial second){
 		Polynomial result = new Polynomial();
-		for(int i = 0;i<result.coeff.length;i++){
-			for(int j = 0;j<result.coeff.length;j++){
-				result.coeff[i+j] += this.coeff[i] * second.coeff[j];
-
+		int length = this.coeff.length + second.coeff.length;
+		result.setCoefficient(length,0);
+		for(int i = 0;i<this.coeff.length;i++){
+			for(int j = 0;j<second.coeff.length;j++){
+				result.setCoefficient(  i+j  , result.coeff[i+j] +  ((this.coeff[i])*(second.coeff[j])));
 			}
 		}
 		return result;
