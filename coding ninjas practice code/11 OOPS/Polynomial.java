@@ -21,15 +21,38 @@ public class Polynomial{
 	}
 	public Polynomial add(Polynomial second){
 		Polynomial result = new Polynomial();
-		for(int i = 0;i<result.coeff.length;i++)
-			result.coeff[i] = this.coeff[i] + second.coeff[i];
+		int resultLength = Math.max(this.coeff.length,second.coeff.length);
+		result.setCoefficient(resultLength,0);
+		int i = 0;
+		for(;i<this.coeff.length && i<second.coeff.length;i++)
+			result.setCoefficient(i,this.coeff[i] + second.coeff[i]);
+		while(i<this.coeff.length){
+			result.setCoefficient(i,this.coeff[i]);
+			i++;
+		}
+		while(i<second.coeff.length){
+			result.setCoefficient(i,second.coeff[i]);
+			i++;
+		}
+
 		return result;
 
 	}
 	public Polynomial subtract(Polynomial second){
 		Polynomial result = new Polynomial();
-		for(int i = 0;i<result.coeff.length;i++)
-			result.coeff[i] = this.coeff[i] - second.coeff[i];
+		int resultLength = Math.max(this.coeff.length,second.coeff.length);
+		result.setCoefficient(resultLength,0);
+		int i = 0;
+		for(;i<this.coeff.length && i<second.coeff.length;i++)
+			result.setCoefficient(i,this.coeff[i] - second.coeff[i]);
+		while(i<this.coeff.length){
+			result.setCoefficient(i,this.coeff[i]); 
+			i++;
+		}
+		while(i<second.coeff.length){
+			result.setCoefficient(i,-second.coeff[i]);
+			i++;
+		}
 		return result;
 	}
 	public Polynomial multiply(Polynomial second){
@@ -38,7 +61,8 @@ public class Polynomial{
 		result.setCoefficient(length,0);
 		for(int i = 0;i<this.coeff.length;i++){
 			for(int j = 0;j<second.coeff.length;j++){
-				result.setCoefficient(  i+j  , result.coeff[i+j] +  ((this.coeff[i])*(second.coeff[j])));
+				int value = result.coeff[i+j];
+				result.setCoefficient(  i+j  , value + ((this.coeff[i])*(second.coeff[j])));
 			}
 		}
 		return result;
