@@ -8,45 +8,41 @@ class LinkedListNode<T>{
 }
 public class _08MergeTwoList{
 		public static LinkedListNode<Integer> mergeTwoList(LinkedListNode<Integer> head1, LinkedListNode<Integer> head2){
-			LinkedListNode<Integer> temp1 = head1;
-			LinkedListNode<Integer> temp2 = head2;
-			LinkedListNode<Integer> temp = null;
-			LinkedListNode<Integer> head = null;
+			LinkedListNode<Integer> temp1 = head1, temp2 = head2 ,temp = null, head = null;
+			//Check if one list is empty
+			if(head1 == null)
+				return head2;
+			else if(head2 == null)
+				return head1;
+			//Decide head
+			if(temp1.data <= temp2.data){
+				head = head1;
+				temp = head1;
+				temp1= temp.next;
+			}else{
+				head = head2;
+				temp = head2;
+				temp2= temp2.next;
+			}
+			//Merging list
 			while(temp1 != null && temp2 != null){
 
 				if(temp1.data <= temp2.data){
-					if(head == null)
-						head = temp1;
-					else
-						temp.next = temp1;
+					temp.next = temp1;
 					temp = temp1;
 					temp1 = temp1.next;
 				}else{
-					if(head == null)
-						head = temp2;
-					else
-						temp.next = temp2;
+			    	temp.next = temp2;
 					temp = temp2;
-					temp2 = temp2.next;
-					
+					temp2 = temp2.next;	
 				}
 			}
-			while(temp1 != null){
-				if(head == null)
-					head = temp1;
-				else
-					temp.next = temp1;
-				temp = temp1;
-				temp1 = temp1.next;
-			}
-			while(temp2 != null){
-				if(head == null)
-					head = temp2;
-				else
-					temp.next = temp2;
-				temp = temp2;
-				temp2 = temp2.next;
-			}
+			//If one  of the list ends while merging
+			if(temp1 != null)
+				temp.next = temp1;
+			if(temp2 != null)
+				temp.next = temp2;
+				
 			return head;
 		}
 
