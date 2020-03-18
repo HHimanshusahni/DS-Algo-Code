@@ -28,6 +28,22 @@ public class _06InsertNodeRecursively{
 		return head;
 
 	}
+	//Approach 2
+	public static LinkedListNode<Integer> insertR2(LinkedListNode<Integer>head,int data,int pos){
+		//Base Case
+		if(pos == 0){
+			LinkedListNode<Integer> newNode = new LinkedListNode<Integer>(data);
+			newNode.next = head;
+			return newNode;
+		}else if(head == null || pos<0){
+			return head;
+		}
+		//Recursive Case
+		LinkedListNode<Integer> smallAns = insertR2(head.next,data,pos-1);
+		//Small Calculation
+		head.next = smallAns;
+		return head;
+	}
 	public static void main(String[]args){
 		Scanner s = new Scanner(System.in);
 		LinkedListNode<Integer> head = null;
@@ -48,7 +64,7 @@ public class _06InsertNodeRecursively{
 		}
 		int position = s.nextInt();
 		data  = s.nextInt();
-		head = insertR(head,data,position);
+		head = insertR2(head,data,position);
 		print(head);
 
 
