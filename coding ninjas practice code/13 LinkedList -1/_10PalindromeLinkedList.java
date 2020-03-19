@@ -67,9 +67,55 @@ public class _10PalindromeLinkedList{
 			return headReversed;
 
 	}
+
+	//Approach 3  Time Complexity O(n) & Space Complexity O(1) by reversing the 2nd half of the linkedlist and comparing the values with the first half
+	public static boolean isPalindrome_4(LinkedListNode<Integer> head) {
+		if(head == null || head.next == null)
+			return true;
+		//First find count the total nodes in the linkedlist
+		int count = 0;
+		LinkedListNode<Integer> temp = head;
+		while(temp != null){
+			count++;
+			temp = temp.next;
+		}
+		//Now find the midpoint of the linkedlist
+		temp = head; 
+		for(int i = 0;i<((count+1)/2)-1;i++){
+			temp = temp.next;
+		}
+		LinkedListNode<Integer> head2 = temp.next;
+		temp.next = null;
+		head2 = reverse(head2);
+		LinkedListNode<Integer> temp2 = head2;
+		temp = head;
+		while(temp!=null && temp2!=null){
+			if(!temp.getData().equals(temp2.getData()))
+				return false;
+			temp = temp.next;
+			temp2 = temp2.next;
+		}
+		return true;
+
+
+	}
+	public static LinkedListNode<Integer> reverse(LinkedListNode<Integer> head){
+		if(head == null|| head.next == null)
+			return head;
+		LinkedListNode<Integer> prev = null, current = head,next;
+		while(current != null){
+			next = current.next;
+			current.next = prev;
+			prev = current;
+			current = next;
+		}
+		head = prev;
+		return head;
+	}
+
 	public static void main(String[] args)throws IOException{
 		LinkedListNode<Integer> head = takeInput();
-		System.out.println(isPalindrome_3(head));
+		System.out.println(isPalindrome_4(head));
 
 	}
 
