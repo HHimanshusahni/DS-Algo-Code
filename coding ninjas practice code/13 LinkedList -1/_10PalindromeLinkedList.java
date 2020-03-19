@@ -39,9 +39,37 @@ public class _10PalindromeLinkedList{
 			}
 			return true;
 	}
+	//Approach 2 By Reversing the LinkedList and comparing the elements with the original list O(n) time and O(n) space
+	public static boolean isPalindrome_3(LinkedListNode<Integer> head){
+		if(head == null || head.next == null)
+			return true;
+		LinkedListNode<Integer>head2 = reverseLinkedList(head);
+		LinkedListNode<Integer>temp1 = head,temp2 = head2;
+		while(temp1 !=null && temp2 !=null){
+			if(!temp1.getData().equals(temp2.getData()))
+				return false;
+			temp1 = temp1.next;
+			temp2 = temp2.next;
+		}
+		return true;
+	}
+	public static LinkedListNode<Integer> reverseLinkedList(LinkedListNode<Integer>head){
+			if(head == null && head.next == null)
+				return head;
+			LinkedListNode<Integer> headReversed ,prev = null ,temp = head,newNode;
+			while(temp != null){
+				newNode = new LinkedListNode<Integer>(temp.getData());
+				newNode.next = prev;
+				prev = newNode;
+				temp = temp.next;
+			}
+			headReversed = prev;
+			return headReversed;
+
+	}
 	public static void main(String[] args)throws IOException{
 		LinkedListNode<Integer> head = takeInput();
-		System.out.println(isPalindrome_2(head));
+		System.out.println(isPalindrome_3(head));
 
 	}
 
