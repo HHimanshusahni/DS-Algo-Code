@@ -33,9 +33,18 @@ public class _11MidpointLinkedList{
 		return temp.getData().intValue();
 
 	}
+	//Approach 2 Finding the middle node in one traversal
+	public static int printMiddel_2(LinkedListNode<Integer>head){
+		LinkedListNode<Integer> slow = head , fast = head.next;
+		while(fast != null && fast.next != null){
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		return slow.getData().intValue();
+	}
 	public static void main(String[] args){
 		LinkedListNode<Integer> head = takeInput();
-		System.out.println(printMiddel(head));
+		System.out.println(printMiddel_2(head));
 	}
 	public static LinkedListNode<Integer> takeInput(){
 		Scanner scan = new Scanner(System.in);
