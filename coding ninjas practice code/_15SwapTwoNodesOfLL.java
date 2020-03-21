@@ -71,12 +71,49 @@ public class _15SwapTwoNodesOfLL{
 
 		return head;
 	}
+	//Implmentation 2 : We club the separate cases
+	public static LinkedListNode<Integer> swap_nodes_2(LinkedListNode<Integer> head,int i,int j){
+
+		LinkedListNode<Integer> p1 = null, c1 = null, p2 = null, c2 = null,temp = head,prev = null;
+		int counter = 0;
+		while(temp != null){
+			if(counter == i){
+				c1 = temp;
+				p1 = prev;
+			}
+			if(counter == j){
+				c2 = temp;
+				p2 = prev;
+			}
+			prev = temp;
+			temp = temp.next;
+			counter++;
+		} 
+
+		// If any of the p1 or p2 is null then we need to update the head as node is head node
+		if(p1 == null)
+			head = c2;
+		else
+			p1.next = c2;
+
+		if(p2 == null)
+			head = c1;
+		else
+			p2.next = c1;
+		
+		temp = c2.next;// Saving the next reference as it will get lost after the next statement
+		c2.next = c1.next;
+		c1.next = temp;
+		return head;
+	}
+
+
 	public static void main(String[]args){
 		LinkedListNode<Integer> head = takeInput();
 		Scanner scan = new Scanner(System.in);
 		int i = scan.nextInt();
 		int j = scan.nextInt();
-		head = swap_nodes(head,i,j);
+		head = swap_nodes_2(head,i,j);
 		print(head);
 	}
 	public static LinkedListNode<Integer> takeInput(){
