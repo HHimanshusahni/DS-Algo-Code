@@ -18,9 +18,21 @@ public class _02FindElementInLinkedListRecursively{
 			return count;
 		return indexOfNRec(head.next,n,count+1);
 	}
+	//Approach 2
+		public static int indexOfNRec_2(LinkedListNode<Integer> head, int n) {
+		if(head == null)
+			return -1;
+		if(head.data == n)
+			return 0;
+		int smallAns =  indexOfNRec_2(head.next ,n);
+		if(smallAns != -1)
+			return 1+smallAns;
+		else 
+			return -1;
+	}
 	public static void main(String[]args){ 
 		Scanner s = new Scanner(System.in);
-		System.out.println(indexOfNRec(takeInput(),s.nextInt()));
+		System.out.println(indexOfNRec_2(takeInput(),s.nextInt()));
 	}
 	public static LinkedListNode<Integer> takeInput(){
 		Scanner scan = new Scanner(System.in);
