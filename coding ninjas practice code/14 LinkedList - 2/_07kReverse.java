@@ -18,9 +18,9 @@ public class _07kReverse{
 		if(head == null || head.next == null)
 			return head;
 
-		LinkedListNode<Integer> ptr = head,h = head,tail = null;
+		LinkedListNode<Integer> ptr = head,h = head,tail = null,hnext;
 
-		while(h != null){
+		while(h != null && h.next != null){
 			ptr = h;
 			for(int i = 0;i<k-1 && ptr.next != null;i++){
 				ptr = ptr.next;
@@ -36,7 +36,6 @@ public class _07kReverse{
 				tail.next = temp;
 			tail = h;
 			h = hnext;
-
 			
 		}
 		return head;
@@ -53,12 +52,24 @@ public class _07kReverse{
 		}
 		return prev;
 	}
-
-	
+	//Appraoch 2 Using recursion
+	public static LinkedListNode<Integer> kReverse_2(LinkedListNode<Integer> head,int k){
+		if(head == null || head.next == null)
+			return head;
+		LinkedListNode<Integer> ptr = head,head2 = null,tail;
+		for(int i = 0;i<k-1 && ptr.next != null;i++)
+			ptr = ptr.next;
+		head2 = ptr.next;
+		ptr.next = null;
+		tail = head;
+		head = reverseList(head);
+		tail.next = kReverse_2(head2,k);
+		return head;
+	}
 	public static void main(String[] args){
 		LinkedListNode<Integer> head = takeInput();
 		Scanner s = new Scanner(System.in);
-		head = kReverse(head,s.nextInt());
+		head = kReverse_2(head,s.nextInt());
 		print(head);
 	}
 	public static LinkedListNode<Integer> takeInput(){
