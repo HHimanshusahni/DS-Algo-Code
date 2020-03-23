@@ -39,9 +39,43 @@ public class _08EvenAfterOddLinkedList{
 		else
 			return headEven;
 	}
+
+	//Approach 2 By Making two separate list
+	public static LinkedListNode<Integer> sortEvenOdd_2(LinkedListNode<Integer> head){
+		if(head == null || head.next == null)
+			return head;
+		LinkedListNode<Integer> headOdd = null,tailOdd = null,headEven = null ,tailEven = null,ptr = head;
+		while(ptr != null){
+			if(ptr.data.intValue() %2 == 1){
+				if(headOdd == null)
+					headOdd = ptr;
+				else
+					tailOdd.next = ptr;
+				tailOdd = ptr;
+			}else{
+				if(headEven == null)
+					headEven = ptr;
+				else
+					tailEven.next = ptr;
+				tailEven = ptr;
+			}
+			ptr = ptr.next;
+		}
+		if(tailOdd != null)
+			tailOdd.next = null;
+		if(tailEven != null)
+			tailEven.next = null;
+		if(tailOdd != null){
+			tailOdd.next = headEven;
+			return headOdd;
+		}else{
+			return headEven;
+		}
+
+	}
 	public static void main(String[]args){
 		LinkedListNode<Integer> head = takeInput();
-		head = sortEvenOdd(head);
+		head = sortEvenOdd_2(head);
 		print(head);
 
 	}
