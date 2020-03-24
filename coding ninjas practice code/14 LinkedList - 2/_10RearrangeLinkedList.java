@@ -32,9 +32,60 @@ public class _10RearrangeLinkedList{
 		}
 		return head;
 	}
+ 
+// https://www.geeksforgeeks.org/rearrange-a-given-linked-list-in-place/
+// https://www.geeksforgeeks.org/rearrange-linked-list-alternate-first-last-element/
+
+// Approach 2 O(n) : find the midpt of the list .separate into two list . reverse the second list and 
+// merge the two list alternatively
+ 	public static ListNode<Integer> changelist_2(ListNode<Integer> head) {
+ 		// if(head == null || head.next  == null || head.next.next == null)
+ 		// 	return head;
+ 		 ListNode<Integer> midpoint,head2,tail = null,ptr1,ptr2,next1,next2; 
+ 		 midpoint = findMidpt(head);
+ 		 head2 = midpoint.next;
+ 		 midpoint.next = null;
+ 		 head2 = reverseList(head2);
+ 		 ptr1 = head;
+ 		 ptr2 = head2;
+ 		 while(ptr1 != null && ptr2 != null){
+ 			next1 = ptr1.next;
+ 		    next2 = ptr2.next;
+ 		 	if(tail == null)
+ 		 		tail = head;
+ 		 	
+ 		 	tail.next = ptr2;
+ 		 	ptr2.next = next1;
+ 		 	ptr1 = next1;
+ 		 	ptr2 = next2;
+ 		 	tail  = next1;
+ 		 }
+ 		 return head;
+
+	}
+	public static ListNode<Integer> findMidpt(ListNode<Integer> head){
+		if(head == null || head.next == null)
+			return head;
+		ListNode<Integer> slow = head , fast = head;
+		while(fast.next != null && fast.next.next != null){
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		return slow;
+	}
+	public static ListNode<Integer> reverseList(ListNode<Integer> head){
+		ListNode<Integer> prev = null, current = head , next;
+		while(current != null){
+			next = current.next;
+			current.next = prev;
+			prev = current;
+			current = next;
+		}
+		return prev;
+	}
 	public static void main(String[]args){
 		ListNode<Integer> head = takeInput();
-		head = changelist(head);
+		head = changelist_2(head);
 		print(head);
 	}
 	public static ListNode<Integer> takeInput(){
