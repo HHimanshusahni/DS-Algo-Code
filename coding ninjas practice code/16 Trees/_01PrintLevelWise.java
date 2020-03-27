@@ -7,7 +7,7 @@ class _01PrintLevelWise{
 		Queue<TreeNode<Integer>> q = new LinkedList<>();
 		q.offer(root);
 		q.offer(null);
-		while(!q.isEmpty()){
+		while(true){
 			TreeNode<Integer> treeNode = q.poll();
 			if(treeNode == null){ // we have printed all the nodes of the level
 				if(q.isEmpty())// If no other element is present then that means it is the last element
