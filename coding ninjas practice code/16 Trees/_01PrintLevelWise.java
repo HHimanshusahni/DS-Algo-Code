@@ -7,15 +7,26 @@ class _01PrintLevelWise{
 		Queue<TreeNode<Integer>> q = new LinkedList<>();
 		System.out.println(root.data);
 		q.offer(root);
-		while(q.peek() != null){
+		q.offer(null);
+		boolean flag = true;// flag true means that we have last element in the queue as null
+		while(!q.isEmpty()){
 			TreeNode<Integer> treeNode = q.poll();
-			for(int i =  0;i<treeNode.children.size();i++){
-				System.out.print(treeNode.children.get(i).data+" ");
-				q.offer(treeNode.children.get(i));
-			}
-			if(treeNode.children.size() != 0)
+			if(treeNode == null){ // we have printed all the nodes of the level
+				if(flag)
+					break;
+				flag = true;
 				System.out.println();
+				q.offer(null); // inserting null in the list to mark the ending of one level
+			}else{
+				System.out.print(treeNode.data+" ");
+				//Add all the children to the queue
+				for(int i =  0;i<treeNode.children.size();i++)
+			  		q.offer(treeNode.children.get(i));
+			  	flag = false;
+			}
+			
 		}
+
 
 	}
 	public static void main(String[]args){
