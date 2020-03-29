@@ -6,10 +6,10 @@ public class _02MaxDataNode{
 		//Small Calucution
 		BinaryTreeNode<Integer> maxNode = root;
 		BinaryTreeNode<Integer> leftMax = maxDataNode(root.left);
-		if(leftMax != null && maxNode.data < leftMax.data)
+		if(leftMax != null && maxNode.data.intValue() < leftMax.data.intValue())
 			maxNode = leftMax;
 		BinaryTreeNode<Integer> rightMax = maxDataNode(root.right);
-		if(rightMax != null && maxNode.data < rightMax.data)
+		if(rightMax != null && maxNode.data.intValue() < rightMax.data.intValue())
 			maxNode = rightMax;
 		return maxNode;
 	}
