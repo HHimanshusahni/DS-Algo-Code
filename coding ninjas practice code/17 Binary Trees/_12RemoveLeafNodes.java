@@ -22,6 +22,19 @@ public class _12RemoveLeafNodes{
 			removeAllLeaves(root.right);
 		
 	}
+	
+	//Approach 2
+	public static BinaryTreeNode<Integer> removeAllLeaves(BinaryTreeNode<Integer> root){
+		if(root == null)
+			return null;
+		if(root.left == null && root.right == null) //leaf node
+			return null;
+
+		root.left = removeAllLeaves(root.left);
+		root.right = removeAllLeaves(root.right);
+		return root;
+	}
+	
 	public static void main(String[]args){
 		BinaryTreeUse tree = new BinaryTreeUse();
 		BinaryTreeNode<Integer>root  = tree.takeInputLevelWise();
