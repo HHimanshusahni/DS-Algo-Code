@@ -1,5 +1,6 @@
 import java.util.Queue;
 import java.util.Stack;
+import java.util.LinkedList;
 public class _13ZigZagTree{
 	//Approach 1 Using Two stacks 
 	public  static void printZigZag(BinaryTreeNode<Integer> root) {
@@ -34,10 +35,45 @@ public class _13ZigZagTree{
 		}
 
 	}	
-	
+	//Approach 2 Using queue and stack but according to me time complexity is O(n^2)
+	//do normal level order traversal and for flag = false push element into the stack and print them by popping when level ends
+	public  static void printZigZag_2(BinaryTreeNode<Integer> root) {
+		if(root == null)
+			return;
+		Queue<BinaryTreeNode<Integer>> q = new LinkedList<>();
+		Stack<BinaryTreeNode<Integer>> s = new Stack<>();
+		boolean flag = true;
+		q.offer(root);
+		q.offer(null);
+		while (true){
+			BinaryTreeNode<Integer> node = q.poll();
+			if(node == null){
+				if(!flag){
+					while(!s.isEmpty())
+						System.out.print(s.pop().data+" ");
+				}
+				flag = !flag;
+				if(q.isEmpty())
+					break;
+				q.offer(null);
+				System.out.println();
+			}else{
+				if(flag){//Print
+					System.out.print(node.data+" ");
+				}else{
+					s.push(node);
+				}
+				if(node.left != null)
+					q.offer(node.left);
+				if(node.right != null)
+					q.offer(node.right);
+			}
+		}
+
+	}
 	public static void main(String[]args){
 		BinaryTreeUse tree = new BinaryTreeUse();
 		BinaryTreeNode<Integer>root  = tree.takeInputLevelWise();
-		printZigZag(root);
+		printZigZag_2(root);
 	}
 }
