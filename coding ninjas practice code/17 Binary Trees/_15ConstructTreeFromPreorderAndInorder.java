@@ -1,22 +1,12 @@
 import java.util.Scanner;
 public class _15ConstructTreeFromPreorderAndInorder{
 	public static BinaryTreeNode<Integer> getTreeFromPreorderAndInorder(int[] pre,int[] in){
-			return getTreeFromPreorderAndInorder(
-				pre,in,
-				0,pre.length-1,
-				0,in.length-1
-			);
+			return getTreeFromPreorderAndInorder(pre,in,0,pre.length-1,	0,in.length-1);
 	}
 	public static BinaryTreeNode<Integer> getTreeFromPreorderAndInorder(int[]pre,int in[],int pS,int pE, int iS,int iE){
 		//Base Case
 		if(iS >iE){ 
 			return null;  
-		}
-		if(iS == iE){ //Leaf Node
-			BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(in[iS]);
-			root.left = null;
-			root.right = null;
-			return root;
 		}
 		//Small Calculation
 		int data = pre[pS];
