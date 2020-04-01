@@ -1,3 +1,8 @@
+class Triplet{
+	boolean bool;
+	int largest;
+	int smallest;
+}
 public class _06CheckBST{
 	//Approach 1 O(n^2)
 	public static boolean isBST(BinaryTreeNode<Integer> root){
@@ -23,10 +28,36 @@ public class _06CheckBST{
     }
 
     // 8 5 10 2 6 -1 -1 -1 -1 -1 7 -1 -1
-    //Approach2 
+    //Approach2 O(n) Better approach
+    public static boolean isBST_2(BinaryTreeNode<Integer> root){
+    	return isBST_2Help(root).bool;
+    }
+    public static Triplet isBST_2Help(BinaryTreeNode<Integer> root){
+    	if(root == null)
+    		return null;
+    	Triplet leftAns = isBST_2Help(root.left);
+    	Triplet rightAns = isBST_2Help(root.right);
+    	Triplet ans = new Triplet();
+    	if(leftAns != null && (leftAns.largest > root.data.intValue()|| leftAns.bool == false)){
+    		ans.bool = false;
+    		return ans;
+    	}else if(rightAns != null && (rightAns.smallest < root.data.intValue() || rightAns.bool == false)){
+    		ans.bool = false;
+    		return ans;
+    	}
+    	ans.bool = true;
+    	ans.smallest = root.data;
+    	ans.largest = root.data;
+    	if(leftAns != null)
+    		ans.smallest = leftAns.smallest;
+    	if(rightAns != null)
+    		ans.largest =  rightAns.largest;
+    	return ans;
+    }
+    
 	public static void main(String[]args){
 		BinaryTreeNode<Integer> root = _00BinaryTreeUse.takeInputLevelWise();
-		System.out.println(isBST(root));
+		System.out.println(isBST_2(root));
 		
 	}
 }
