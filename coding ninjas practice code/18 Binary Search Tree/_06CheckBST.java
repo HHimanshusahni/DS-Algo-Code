@@ -54,10 +54,26 @@ public class _06CheckBST{
     		ans.largest =  rightAns.largest;
     	return ans;
     }
-    
+    //Approach 3 Best approach O(n) but simple implementation
+    public static boolean isBST_3(BinaryTreeNode<Integer> root){
+    	return isBST_3Help(root,Integer.MIN_VALUE,Integer.MAX_VALUE);
+    }
+    public static boolean isBST_3Help(BinaryTreeNode<Integer> root,int smallest,int largest){
+    	if(root == null)
+    		return true;
+    	if(root.data < smallest || root.data > largest)
+    		return false;
+    	else{
+    		boolean leftAns = isBST_3Help(root.left,smallest,root.data -1);
+    		boolean rightAns = isBST_3Help(root.right,root.data+1 ,largest);
+    		return leftAns  && rightAns;
+    	}
+
+    }
+
 	public static void main(String[]args){
 		BinaryTreeNode<Integer> root = _00BinaryTreeUse.takeInputLevelWise();
-		System.out.println(isBST_2(root));
+		System.out.println(isBST_3(root));
 		
 	}
 }
