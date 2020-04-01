@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 class Triplet{
 	boolean bool;
 	int largest;
@@ -71,9 +72,27 @@ public class _06CheckBST{
 
     }
 
+    //Approach 4 : Inorder approach O(n) : Inorder traversal of the BST must be in the increasing order
+     public static boolean isBST_4(BinaryTreeNode<Integer> root){
+     	ArrayList<Integer> list = new ArrayList<Integer>();
+     	isBST_4Help(root,list);
+     	for(int i = 1;i<list.size();i++){
+     		if(list.get(i-1) > list.get(i))
+     			return false;
+     	}
+     	return true;
+     }
+    public static void isBST_4Help(BinaryTreeNode<Integer>root,ArrayList<Integer> list){
+    	if(root == null)
+    		return ;
+    	isBST_4Help(root.left, list);
+    	list.add(root.data);
+    	isBST_4Help(root.right,list);
+    	return;
+    }
 	public static void main(String[]args){
 		BinaryTreeNode<Integer> root = _00BinaryTreeUse.takeInputLevelWise();
-		System.out.println(isBST_3(root));
+		System.out.println(isBST_4(root));
 		
 	}
 }
