@@ -15,10 +15,19 @@ public class _08CreateAndInsertDuplicateNode{
 		root.right = insertDuplicateNodeHelp(root.right);
 		return root;
 	}
-
+	//Approach 2 : Better way of writing code without helper functi
+	public static void insertDuplicateNode_2(BinaryTreeNode<Integer>root){
+		if(root == null)
+			return;
+		BinaryTreeNode<Integer> newNode = new BinaryTreeNode<Integer>(root.data),rootLeft = root.left;
+		root.left = newNode;
+		newNode.left = rootLeft;
+		insertDuplicateNode_2(newNode.left);
+		insertDuplicateNode_2(root.right);
+	}
 	public static void main(String[]args){
 		BinaryTreeNode<Integer> root = _00BinaryTreeUse.takeInputLevelWise();
-		insertDuplicateNode(root);
+		insertDuplicateNode_2(root);
 		_00BinaryTreeUse.printLevelWise(root);
 
 	}
