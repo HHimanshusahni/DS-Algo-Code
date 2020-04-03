@@ -36,10 +36,36 @@ public class _11LCABST{
 		else
 			return searchBST(root.right,element);
 	}
+	//Approach  2 Without Extra Search function
+	public static int lcaInBST_2(BinaryTreeNode<Integer> root , int a , int b){
+		//Base Case
+		if(root == null)
+			return -1;
+		if(root.data == a || root.data == b)
+			return root.data;
+		//Rec Case
+		if(root.data > a && root.data > b)
+			return lcaInBST_2(root.left, a, b);
+		else if(root.data < a  && root.data < b)
+			return lcaInBST_2(root.right, a,b);
+		else{
+			int leftAns = lcaInBST_2(root.left, a,b);
+			int rightAns = lcaInBST_2(root.right,a,b);
+			if(leftAns == -1 && rightAns == -1)
+				return -1;
+			else if(leftAns !=  -1  && rightAns != -1)
+				return root.data;
+			if(leftAns != -1 )
+				return leftAns;
+			else
+				return rightAns;
+		}		
+
+	}
 	public static void main(String[]args){
 		Scanner s = new Scanner(System.in);
 		BinaryTreeNode<Integer> root = _00BinaryTreeUse.takeInputLevelWise();
 		System.out.println("Enter nodes to data for finding the lca");
-		System.out.println(lcaInBST(root,s.nextInt(),s.nextInt()));
+		System.out.println(lcaInBST_2(root,s.nextInt(),s.nextInt()));
 	}
 }
