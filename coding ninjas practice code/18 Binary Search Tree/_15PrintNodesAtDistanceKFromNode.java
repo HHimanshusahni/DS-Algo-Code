@@ -62,7 +62,40 @@ public class _15PrintNodesAtDistanceKFromNode {
 		printNodesAtDepthK(root.right,k-1);
 
 	}
-	
+	//Approach 2
+		public static void nodesAtDistanceK_2(BinaryTreeNode<Integer> root, int node, int k) {
+		nodesAtDistanceKHelp(root,node,k);
+	}
+
+	//The functions returns the distance between the root and the element
+	public static int nodesAtDistanceKHelp(BinaryTreeNode<Integer>root,int node,int k ){
+		if(root == null)
+			return -1;
+		if(root.data == node){
+			printNodesAtDepthK(root,k);
+			return 0;
+		}
+		int leftDistance = nodesAtDistanceKHelp(root.left,node,k);
+		if(leftDistance != -1){//It means left node is reachable from the left side of the root
+			if(leftDistance + 1 == k)
+				System.out.println(root.data);
+			 else
+			 	printNodesAtDepthK(root.right,k - leftDistance -2);
+			 return leftDistance +1;
+		}else{
+			int rightDistance = nodesAtDistanceKHelp(root.right,node,k);
+			if(rightDistance == -1) // It means no node is reachabel from the right node
+				return -1;
+			else{
+				if(rightDistance + 1 == k)
+					System.out.print(root.data);
+				else
+					printNodesAtDepthK(root.left,k -rightDistance -2);
+				return rightDistance +1;
+			}
+		}
+	}
+    
 	public static void main(String[]args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BinaryTreeNode<Integer> root = _00BinaryTreeUse.takeInputLevelWise();
@@ -70,7 +103,7 @@ public class _15PrintNodesAtDistanceKFromNode {
 		int node = Integer.parseInt(br.readLine());
 		System.out.println("Enter distance k :");
 		int k = Integer.parseInt(br.readLine());
-		nodesAtDistanceK(root,node,k);
+		nodesAtDistanceK_2(root,node,k);
 
 	}
 }
