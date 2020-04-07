@@ -32,11 +32,11 @@ public class _16PairSumInABST{
 		BinaryTreeNode<Integer> node1 , node2;
 		justLarger(root,s1);
 		justSmaller(root,s2);
-		while(nodesSeen < totalNodes ){
+		while(nodesSeen < totalNodes-1){
 			int elem1 = s1.peek().data;
 			int elem2 = s2.peek().data;
-			if(elem1 == elem2) // Important check
-				return;
+			// if(elem1 == elem2) // Important check
+			// 	return;
 			// System.out.print("\n"+elem1+" "+elem2+"Popped");
 			if(elem1+elem2 < s){
 				 node1  = s1.pop();
