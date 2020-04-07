@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 public class _02PrintArrayIntersection{
-	public static void intersection(int[] arr1, int[] arr2){//O(n) time & O(n)space n is size of array1
+	public static void intersection(int[] arr1, int[] arr2){//O(n+m) time & O(n)space n is size of array1 and m is size of array2
 		HashMap<Integer,Integer> map = new HashMap<>();
 		for(int i = 0;i<arr1.length;i++){
 			if(map.containsKey(arr1[i])){
