@@ -62,6 +62,23 @@ public class _03PairSumTo0{
 			}
 		}
 	}
+	//Approach 4: Optimization of approach 3 O(n) space O(n)time but need to do only one scan rather than 2 scans
+	public static void PairSum_4(int[] input, int size) {
+		HashMap<Integer,Integer> map = new HashMap<>();
+		int count ;
+		for(int i : input){
+			if(map.containsKey(-i)){
+				 count = map.get(-i);
+				 for(int j = 0;j<count;j++){
+				 	System.out.println(Math.min(i,-i)+" "+Math.max(i,-i));
+				 }
+			}
+			if(map.containsKey(i)){
+				map.put(i,map.get(i)+1);
+			}else
+				map.put(i,1);
+		}
+	}
 	public static void main(String[]args)throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int size = Integer.parseInt(br.readLine());
@@ -69,6 +86,6 @@ public class _03PairSumTo0{
 		String sArr[] = br.readLine().split(" ");
 		for(int i = 0;i<size;i++)
 			input[i] = Integer.parseInt(sArr[i]);
-		PairSum_3(input,size);
+		PairSum_4(input,size);
 	}
 }
