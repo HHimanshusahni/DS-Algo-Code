@@ -40,6 +40,28 @@ public class _03PairSumTo0{
 			}
 		}
 	}
+	//Approach 3 O(n) space O(n)time
+	public static void PairSum_3(int[] input, int size) {
+		HashMap<Integer,Integer> map = new HashMap<>();
+		for(int i : input){
+			if(map.containsKey(i))
+				map.put(i,map.get(i)+1);
+			else
+				map.put(i,1);
+		}
+		int firstCount ,secondCount;
+		for(int i :input){
+			if(map.containsKey(i) && map.containsKey(-i)){
+				firstCount = map.get(i);
+				secondCount = map.get(-i);
+				for(int j = 1; j <= firstCount * secondCount; j++){
+					System.out.println(Math.min(i,-i)+" "+Math.max(i,-i));
+				}
+				map.remove(i);
+				map.remove(-i);
+			}
+		}
+	}
 	public static void main(String[]args)throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int size = Integer.parseInt(br.readLine());
@@ -47,6 +69,6 @@ public class _03PairSumTo0{
 		String sArr[] = br.readLine().split(" ");
 		for(int i = 0;i<size;i++)
 			input[i] = Integer.parseInt(sArr[i]);
-		PairSum_2(input,size);
+		PairSum_3(input,size);
 	}
 }
