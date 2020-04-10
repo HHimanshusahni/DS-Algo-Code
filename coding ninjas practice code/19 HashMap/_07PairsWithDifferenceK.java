@@ -53,7 +53,41 @@ public class _07PairsWithDifferenceK{
 			}
 		}
 	}
-
+	//Approach 3 Time : O(n) , Space: O(n)
+	public static void findPairsDifferenceK_3(int[] input, int k){
+		HashMap<Integer,Integer> map = new HashMap<>();
+		for(int i = 0;i<input.length;i++){
+			if(map.containsKey(input[i]))
+				map.put(input[i],map.get(input[i])+1);
+			else
+				map.put(input[i],1);
+		}
+		int count1 ,count2;
+		for(int i = 0;i<input.length;i++){
+			int val = input[i];
+			if(map.containsKey(val)){
+			    count1 = map.get(val);
+			    if(k == 0 && count1 > 1){
+			    	for(int j = 0;j<( count1 * (count1 -1) )/2;j++)
+			    		System.out.println(val +" "+val);
+			  
+			    }else{
+				     if(map.containsKey(val - k)){
+						 count2 = map.get(val -k);
+						for(int j = 0;j<count1 * count2;j++)
+							System.out.println(Math.min(val,val - k)+" "+Math.max(val,val-k));
+					}
+					if(map.containsKey(val +k)){
+					    count2 = map.get(val+k);
+						for(int j = 0;j<count1 * count2; j++)
+							System.out.println(Math.min(val,val + k)+" "+Math.max(val,val + k));
+					}
+			    }
+			
+				map.remove(val);
+			}
+		}
+	}
 	public static void main(String[]args)throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
@@ -62,6 +96,6 @@ public class _07PairsWithDifferenceK{
 		for(int i = 0;i<n;i++)
 			input[i] = Integer.parseInt(strArr[i]);
 		int k = Integer.parseInt(br.readLine());
-		findPairsDifferenceK_2(input,k);
+		findPairsDifferenceK_3(input,k);
 	}
 }
