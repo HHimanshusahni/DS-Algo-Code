@@ -44,7 +44,7 @@ public class _00MinPriorityQueue{
 		}
 		heap.set(0,heap.get(lastElementIndex));
 		heap.remove(lastElementIndex);
-		downHeapify(0);
+		downHeapify_Iterative();
 		return 	minElement;
 	}
 	public void downHeapify(int Pi){ //Time Complexity : O (log (n)) Recursive Appraoch
@@ -69,6 +69,32 @@ public class _00MinPriorityQueue{
  			downHeapify(rightChildIndex);
  		}
  		return;
+	}
+	public void downHeapify_Iterative(){ //Time Complexity : O (log (n)) 
+		//Base Case 
+		int Pi = 0;
+		while(true){
+			int leftChildIndex = (2* Pi) + 1;
+	 		int rightChildIndex = (2* Pi )+ 2;
+	 		int leftValue = Integer.MAX_VALUE,rightValue = Integer.MAX_VALUE, parentValue = heap.get(Pi);
+	 		if(leftChildIndex < heap.size())
+	 			leftValue  = heap.get(leftChildIndex);
+	 		if(rightChildIndex < heap.size())
+	 			rightValue = heap.get(rightChildIndex);
+
+	 		if(parentValue < leftValue && parentValue < rightValue )
+	 			return;
+	 		else if(leftValue < rightValue){
+	 			heap.set(Pi,leftValue);
+	 			heap.set(leftChildIndex,parentValue);
+	 			Pi = leftChildIndex;
+	 		}else{
+	 			heap.set(Pi,rightValue);
+	 			heap.set(rightChildIndex,parentValue);
+	 			Pi = rightChildIndex;
+	 		}
+ 		}
+ 		
 	}
 	public int size(){
 		return  heap.size();
