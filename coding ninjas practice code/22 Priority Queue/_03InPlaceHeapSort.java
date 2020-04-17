@@ -1,7 +1,8 @@
 public class _03InPlaceHeapSort{
 	//Total time complexity : O(n log n ) with Space : O(1)
 	public static void inplaceHeapSort(int arr[]) {
-		buildMinHeap(arr);//O(n log n )
+		// buildMinHeap_(arr);//O(n log n )
+		buildMinHeap_better(arr);//O(n)
 		sortMinHeap(arr);// O(nlog n )
 	}
 	//Time Complexity : O(n log n )
@@ -22,6 +23,41 @@ public class _03InPlaceHeapSort{
 
 			ci = pi;
 			pi = (ci - 1)/2;
+		}
+	}
+	//Time Complexity : O(n) 
+	//https://www.geeksforgeeks.org/time-complexity-of-building-a-heap/
+	public static void buildMinHeap_better(int arr[]){
+		int heapSize = arr.length;
+		int  firstNonLeafIndex = (heapSize/2) - 1 ;
+		for(int i = firstNonLeafIndex ;i >=0 ;i--){
+			downHeapify_better(arr, i);//O(log n )
+		}
+	}
+	public static void downHeapify_better(int minHeap[],int pi){
+		int heapSize = minHeap.length -1;
+		while(true){
+			int p = minHeap[pi];
+			int lci = 2 * pi + 1;
+			int rci = 2 * pi + 2;
+			int lc = Integer.MAX_VALUE,rc = Integer.MAX_VALUE;
+			if(lci < heapSize)
+				lc = minHeap[lci];
+			if(rci < heapSize)
+				rc = minHeap[rci];
+			if( p < lc && p < rc)
+				return;
+			else if( lc < rc){
+				//swap left child  with parent
+				minHeap[pi] = lc;
+				minHeap[lci] = p;
+				pi = lci;
+			}else{
+				//swap right child with parent
+				minHeap[pi] = rc;
+				minHeap[rci] = p;
+				pi = rci;
+			}
 		}
 	}
 	//Time Complexity : O(n log n )
