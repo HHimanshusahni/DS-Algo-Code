@@ -24,6 +24,24 @@ public class _05CheckMaxHeap{
 			return false;
 		return checkMaxHeap(arr,leftChildIndex) && checkMaxHeap(arr,rightChildIndex);
 	}
+
+	//Approach 2 Iterative Time: O(n) Space : O(1)
+	public static boolean checkMaxHeap_2(int arr[]) {
+			
+		for(int i = 0 ;i<arr.length;i++){
+			if(2*i +1 >= arr.length)
+				break;
+			if(arr[i] < arr[2*i +1])
+			 	return false;
+
+			if(2*i +2  >= arr.length)
+				break;
+
+			if(arr[i] < arr[2*i +2]) 
+				return false;
+		}
+		return true;
+	}
 	public static void main(String[]args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
@@ -31,7 +49,7 @@ public class _05CheckMaxHeap{
 		String strArr[] = br.readLine().split(" ");
 		for(int i = 0;i<n;i++)
 			arr[i] = Integer.parseInt(strArr[i]);
-		System.out.println(checkMaxHeap(arr)+" ");
+		System.out.println(checkMaxHeap_2(arr)+" ");
 	}
 	
 }
