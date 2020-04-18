@@ -21,6 +21,19 @@ public class _06KthLargestElement{
 		}
 		return pq.poll();
 	}
+	/*Approch 3 O(k + (n-k)*Logk)
+	This approach is similar to the approach2 the  only differnec is that we will make our own
+	build heap function as for k element in the O(k) time
+	https://www.geeksforgeeks.org/kth-smallestlargest-element-unsorted-array/
+	*/
+	/*
+	//Approach 4 : Average time : O(n)
+
+	https://www.geeksforgeeks.org/kth-smallestlargest-element-unsorted-array-set-2-expected-linear-time/
+
+	Approach 5 : worst time : O(n)
+	 https://www.geeksforgeeks.org/kth-smallestlargest-element-unsorted-array-set-3-worst-case-linear-time/
+	*/
 	public static void main(String[]args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
