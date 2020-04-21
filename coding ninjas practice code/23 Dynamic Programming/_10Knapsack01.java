@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 public class _10Knapsack01{
-	//Recursive Approach // Time Complexity O( 2^n) as Recurrence is T(n) = 2 T(n-1) + 1
+	//Recursive Approach // Time Complexity O( 2^n) as Recurrence is T(n) = 2 T(n-1) + 1 & Space Complexit: O(n) for recursive stack
 	public static int knapsack(int[] weight,int value[],int maxWeight, int n){
 		//Base Case
 		if(maxWeight == 0 || n == 0 ) {
@@ -19,7 +19,7 @@ public class _10Knapsack01{
 			return  knapsack(weight,value,maxWeight,n-1);
 		}
 	}
-	//Memoziation Appraoch Top Down A
+	//Memoziation Appraoch Top Down A //Time Complexity : O(n * W) ,also O(w) extra space for recursive stack
 	static int dp[][] = new int[101][101]; // <-- extra line in recursive code
 	public static int knapsack_Mem(int[] weight,int value[],int maxWeight, int n){
 		//Base Case
@@ -41,7 +41,7 @@ public class _10Knapsack01{
 		
 	}
 
-	// Tabulization bottom up dp 
+	// Tabulization bottom up dp Time Complexity : O(n x W) , Space Complexity: O( n x W) 
 	public static int knapsack_tab(int []weight, int value[] , int maxWeight,int n ){
 		for(int i = 0 ;i <= maxWeight ;i++)
 			dp[i][0] = 0;
@@ -74,7 +74,7 @@ public class _10Knapsack01{
 		for(int i = 0 ;i<n;i++){
 			value[i] = Integer.parseInt(strArr[i]);
 		}
-		int maxWeight = Integer.parseInt(br.readLine());
+		int maxWeight = 2000;
 
 		for (int[] row : dp) //<--extra line in recursive code
        	 	Arrays.fill(row,-1);//<--extra line in recursive code	
