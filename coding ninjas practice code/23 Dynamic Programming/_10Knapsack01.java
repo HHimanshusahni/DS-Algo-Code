@@ -19,7 +19,7 @@ public class _10Knapsack01{
 			return  knapsack(weight,value,maxWeight,n-1);
 		}
 	}
-	//Memoziation Appraoch
+	//Memoziation Appraoch Top Down A
 	static int dp[][] = new int[101][101]; // <-- extra line in recursive code
 	public static int knapsack_Mem(int[] weight,int value[],int maxWeight, int n){
 		//Base Case
@@ -40,6 +40,27 @@ public class _10Knapsack01{
 		
 		
 	}
+
+	// Tabulization bottom up dp 
+	public static int knapsack_tab(int []weight, int value[] , int maxWeight,int n ){
+		for(int i = 0 ;i <= maxWeight ;i++)
+			dp[i][0] = 0;
+		
+		for(int j = 0;j <= n; j++)
+			dp[0][j] = 0;
+		
+		for(int i = 1;i<= maxWeight ;i++){
+			for(int j = 1;j <= n; j++){
+				if(weight[j-1] <= i){
+					dp[i][j] = Math.max( (value[j - 1] + dp[ i - weight[j-1] ][j - 1] ),
+										 dp[i][j-1]);	
+				}else
+					dp[i][j] = dp[i][j-1];
+
+			}
+		}
+		return dp[maxWeight][n];
+	}
 	public static void main(String[]args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
@@ -57,7 +78,7 @@ public class _10Knapsack01{
 
 		for (int[] row : dp) //<--extra line in recursive code
        	 	Arrays.fill(row,-1);//<--extra line in recursive code	
-		int maxProfit = knapsack_Mem(weight,value, maxWeight, n);
+		int maxProfit = knapsack_tab(weight,value, maxWeight, n);
 		System.out.println(maxProfit);
 	}
 }
