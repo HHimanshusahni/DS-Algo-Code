@@ -61,6 +61,38 @@ public class _10Knapsack01{
 		}
 		return dp[maxWeight][n];
 	}
+	//Space Optimization on the tabulized method Space Complexit O( W)
+	//https://www.geeksforgeeks.org/space-optimized-dp-solution-0-1-knapsack-problem/
+	public static int knapsack_tab_Optimized(int [] weight ,int value [], int maxWeight , int n ){	
+    	
+        int dp  [][] = new int [2][maxWeight+1];
+    	for(int i = 1; i <= n ;i++){
+    		//i is odd
+    		if( i % 2 != 0 ){
+    			for(int j = 1 ; j <= maxWeight ; j++){
+    				if(weight [i -1] <= j){
+    					dp[1][j] = Math.max(value [i-1] + dp[0][j - weight [ i -1]] , dp [0][j]);
+    				}else
+    					dp [1][j] = dp [0][j];
+    				
+    			}
+    		}else{ // i is even
+    			for(int j = 1 ; j <= maxWeight ; j++){
+    				if(weight [i -1] <= j){
+    					dp[0][j] = Math.max(value [i-1] + dp[1][j - weight [ i -1]] , dp [1][j]);
+    				}else
+    					dp [0][j] = dp [1][j];
+    				
+    			}
+    		}
+    	}
+    	if(n %2 != 0) // knapsack is having the odd size
+    		return dp [1][maxWeight];
+    	else
+    		return dp [0][maxWeight]; 
+    	
+    	
+	}
 	public static void main(String[]args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
@@ -74,11 +106,11 @@ public class _10Knapsack01{
 		for(int i = 0 ;i<n;i++){
 			value[i] = Integer.parseInt(strArr[i]);
 		}
-		int maxWeight = 2000;
+		int maxWeight = Integer.parseInt(br.readLine());
 
 		for (int[] row : dp) //<--extra line in recursive code
        	 	Arrays.fill(row,-1);//<--extra line in recursive code	
-		int maxProfit = knapsack_tab(weight,value, maxWeight, n);
+		int maxProfit = knapsack_tab_Optimized(weight,value, maxWeight, n);
 		System.out.println(maxProfit);
 	}
 }
