@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 public class _04FindPathOnBST{
+	//Time complexity O(height)
 	public static ArrayList<Integer> findPath(BinaryTreeNode<Integer> root, int data){
 		//Base Case
 		if(root == null)
