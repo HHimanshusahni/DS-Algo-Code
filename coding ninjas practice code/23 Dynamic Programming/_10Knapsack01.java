@@ -93,6 +93,20 @@ public class _10Knapsack01{
     	
     	
 	}
+
+// 1d array solution space complexity O(W)
+   public static int knapsack(int []weight, int value[] , int maxWeight){
+	   int dp[] = new int[maxWeight+1];
+	    //No need to intialize the row with 0 as already the by defualt values of the dp array is 0
+		for(int i = 1;i < weight.length+1 ; i++){
+			for(int j = maxWeight; j >=0 ;j--){ // reverse array because for filing current value 
+												// We need previous left value or current value
+				if(weight [ i - 1 ] <= j)
+					dp[j] = Math.max( value[i-1]+ dp[j - weight[i-1]], dp[j]);
+			}
+		}
+		return dp[maxWeight]; 
+    }
 	public static void main(String[]args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
@@ -110,7 +124,7 @@ public class _10Knapsack01{
 
 		for (int[] row : dp) //<--extra line in recursive code
        	 	Arrays.fill(row,-1);//<--extra line in recursive code	
-		int maxProfit = knapsack_tab_Optimized(weight,value, maxWeight, n);
+		int maxProfit = knapsack(weight,value, maxWeight, n);
 		System.out.println(maxProfit);
 	}
 }
