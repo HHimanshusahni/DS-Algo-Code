@@ -27,6 +27,24 @@ public class _10CoinChange {
 		}
 		return dp[coins.length][sum];
 	}
+	//Bottom solution using 1d dp matrix
+	public static int noOfWaysOfCoinChange_2(int coins[],int sum){
+		int dp[] = new int[sum + 1];
+//		for(int i : dp)
+//			i = 0;
+		dp[0] = 1 ;
+		
+		for(int i = 1;i < coins.length + 1 ;i++){
+			for(int j = 1 ;j < sum + 1;j++){
+				if(coins[i - 1] <= j)
+					dp[j] = dp[j - coins[i - 1]] + dp[j];
+//				else
+//					dp[j] = dp[j];
+			}
+		}
+		return dp[sum];
+		
+	}
 	public static void main(String[]args)throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int testCases = Integer.parseInt(br.readLine());
@@ -37,7 +55,7 @@ public class _10CoinChange {
 			for(int i = 0 ;i < M;i++)
 				coins[i] = Integer.parseInt(strArr[i]);
 			int N = Integer.parseInt(br.readLine());  // N : sum value or value of the cents
-			System.out.println(noOfWaysOfCoinChange(coins, N));
+			System.out.println(noOfWaysOfCoinChange_2(coins, N));
 		}
 	}
 }
