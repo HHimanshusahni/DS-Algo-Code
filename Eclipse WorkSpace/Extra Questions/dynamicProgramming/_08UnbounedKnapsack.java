@@ -62,6 +62,27 @@ public class _08UnbounedKnapsack {
 			return dp[n][capacity]= maximumProfit_Memoize(
 				  weight, value, capacity, n-1,dp);//we don't include
 	}
+	
+	//Bottom up 1d array approach 5 line code
+	public static int maximumProfit_BottomUp_1dArray(int weight[],int value[],int capacity){
+		int dp[] = new int[capacity + 1];
+		//As by default values are 0 of array no need to intialize with 0
+		for(int i = 1 ;i < weight.length + 1 ;i++ ){
+			for(int j = 1 ; j < capacity + 1;j++){
+				if(weight[i -1 ] <= j){
+					dp[j] = Math.max(value[i-1]+dp[j - weight[i-1]] ,//We include
+									dp[j]);//we don't include
+				}
+//				else
+//					dp[j] = dp[j];  // Not required 
+				
+			}
+		}
+		return dp[capacity];
+		//Note : The inner loop will not be reversed as in the case of the 
+		//bcoz we are considering left value of the current row & not the previous row 
+		//as in the case of the knapsack problem
+	}
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int testCases = Integer.parseInt(br.readLine());
@@ -78,7 +99,7 @@ public class _08UnbounedKnapsack {
 				weight[i] = Integer.parseInt(strArr[i]);
 			
 			
-			System.out.println(maximumProfit_Memoize(weight,value,capacity));
+			System.out.println(maximumProfit_BottomUp_1dArray(weight, value, capacity));
 		}
 		
 
