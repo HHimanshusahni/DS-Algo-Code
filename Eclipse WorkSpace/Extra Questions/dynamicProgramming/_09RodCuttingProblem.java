@@ -42,6 +42,20 @@ public class _09RodCuttingProblem {
 			}
 			return dp[price.length][rodLength];
 		}
+	//Bottom up 1d array approach with O(rodLength) Space complexity
+	public static int maxProfit_3(int price[],int rodLength){
+		int dp[] = new int[rodLength + 1];
+		for(int i = 1; i < price.length+1;i++){
+			for(int j = 1 ;j < rodLength+1;j++){
+				if(i <= j){
+					dp[j] = Math.max(price[i-1]+dp[j-i],dp[j]);
+				}
+//				else
+//					dp[j] = dp[j];
+			}
+		}
+		return dp[price.length];
+	}
 	public static void main(String[]args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int testCases = Integer.parseInt( br.readLine());
@@ -51,7 +65,7 @@ public class _09RodCuttingProblem {
 			String strArr[] = br.readLine().split(" ");
 			for(int i = 0 ;i<n;i++)
 				price[i] = Integer.parseInt(strArr[i]);
-			System.out.println(	maxProfit_2(price,n));
+			System.out.println(	maxProfit_3(price,n));
 		
 		}
 	}
