@@ -1,6 +1,7 @@
 package dynamicProgramming;
 import java.io.*;
 import java.util.Arrays;
+//https://www.geeksforgeeks.org/longest-common-subsequence-dp-4/
 //https://practice.geeksforgeeks.org/problems/longest-common-subsequence/0
 public class _12LongestCommonSubsequence {
 	//Recursive Approach
@@ -41,6 +42,25 @@ public class _12LongestCommonSubsequence {
 			return dp[n][m] = Math.max(LCS_2(X,Y,n-1,m),LCS_2(X,Y,n,m-1));
 		
 	}
+	
+	//Bottom approach
+	public static int LCS_3(String X,String Y, int n ,int m){
+//		Initialization using base case of the recursive code
+		for(int i = 0 ;i < n+1 ;i++)
+			dp[i][0] = 0;
+		for(int j = 0 ;j < m+1 ;j++)
+			dp[j][0] = 0;
+		for(int i = 1; i < n+1;i++){
+			for(int j = 1; j< m+1;j++){
+				if(X.charAt(i)== Y.charAt(j))
+					dp[i][j] = 1 + dp[i-1][j-1];
+				else
+					dp[i][j] = Math.max(dp[i-1][j] , dp[i][j-1]);	
+			}
+		}
+		return dp[n][m];
+		
+	}
 	public static void main(String[] args)throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int testCases = Integer.parseInt(br.readLine());
@@ -50,7 +70,7 @@ public class _12LongestCommonSubsequence {
 			int m = Integer.parseInt(strArr[1]);
 			String X = br.readLine();
 			String Y = br.readLine(); 
-			System.out.println(LCS_Mem(X,Y,n,m));
+			System.out.println(LCS_3(X,Y,n,m));
 		}
 	
 	}
