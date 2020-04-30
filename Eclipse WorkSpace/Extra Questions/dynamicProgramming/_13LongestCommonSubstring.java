@@ -1,5 +1,6 @@
 package dynamicProgramming;
 import java.io.*;
+import java.util.Arrays;
 
 public class _13LongestCommonSubstring {
 //We need to print the length of the longest common substring 
@@ -25,6 +26,27 @@ public class _13LongestCommonSubstring {
 		}
 		return max;
 	}
+	//1d matrix solution
+	static int dp_1d[] = new int[101];
+	public static int LCSubstring_2(String x, String y, int n, int m) {
+		Arrays.fill(dp_1d, 0,m+1,0);
+		int max = 0;
+		int previous ,temp; 
+		for(int i = 1 ;i < n+1 ;i++){
+			previous = 0;
+			for(int j = 1 ;j < m+1 ;j++){
+				temp = dp_1d[j];
+				if(x.charAt(i-1)==y.charAt(j-1)){
+					dp_1d[j] = 1 + previous;
+				}else
+					dp_1d[j] = 0;
+				if(dp_1d[j] > max)
+					max = dp_1d[j];
+				previous = temp;
+			}
+		}
+		return max;
+	}
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int testCases = Integer.parseInt(br.readLine());
@@ -34,7 +56,7 @@ public class _13LongestCommonSubstring {
 			int m = Integer.parseInt(strArr[1]);
 			String X = br.readLine();
 			String Y = br.readLine(); 
-			System.out.println(LCSubstring(X,Y,n,m));
+			System.out.println(LCSubstring_2(X,Y,n,m));
 		}
 
 	}
