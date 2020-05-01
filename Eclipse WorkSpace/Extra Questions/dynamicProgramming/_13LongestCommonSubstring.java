@@ -47,6 +47,54 @@ public class _13LongestCommonSubstring {
 		}
 		return max;
 	}
+	//Recursion
+	public static int LCSubstring_3(String x, String y, int n, int m) {
+	    return LCSubstring_3(x,y,n,m,0);	    
+	}
+	public static int LCSubstring_3(String x, String y, int n ,int m , int count) {
+	    if(n == 0 ||m == 0)
+	        return count;
+	    if(x.charAt(n-1) == y.charAt(m-1))
+	        count =  LCSubstring_3(x,y,n - 1,m - 1,count + 1);
+	    
+	        count = Math.max(count,
+	                         Math.max(LCSubstring_3(x,y,n-1,m,0), LCSubstring_3(x,y,n,m-1,0))
+	                        );
+	        return count;    
+	}
+	//Memoized
+	static int dp_Mem[][][] = new int[101][101][101];
+	public static int LCSubstring_4(String x, String y, int n, int m) {
+		//since there are three variables which are changing during recursion
+		int countLength = Integer.max(n,m)+1;
+		for(int i = 0 ;i < n+1;i++)
+			for(int  j = 0 ;j < m+1 ;j++)
+				Arrays.fill(dp_Mem[i][j],0 ,countLength,-1);
+	
+		int ans = LCSubstring_Mem(x, y, n, m, 0);
+		for(int i = 0 ;i < n+1;i++)
+			for(int  j = 0 ;j < m+1 ;j++){
+				System.out.println("");
+				for(int k = 0 ;k< countLength;k++){
+					System.out.print(dp_Mem[i][j][k]+" ");
+				}
+			}
+		return ans;
+	}
+	public static int LCSubstring_Mem(String x, String y, int n, int m,int count) {
+		  if(n == 0 || m == 0)
+		        return count;
+		  if(dp_Mem[n][m][count] != -1)
+			  return dp_Mem[n][m][count];
+		  		
+		    if(x.charAt(n-1) == y.charAt(m-1))
+		        count =  LCSubstring_Mem(x,y,n - 1,m - 1,count + 1);
+		    
+		        count = Math.max(count,
+		                         Math.max(LCSubstring_Mem(x,y,n-1,m,0), LCSubstring_Mem(x,y,n,m-1,0))
+		                        );
+		        return dp_Mem[n][m][count]= count; 
+	}
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int testCases = Integer.parseInt(br.readLine());
@@ -56,7 +104,7 @@ public class _13LongestCommonSubstring {
 			int m = Integer.parseInt(strArr[1]);
 			String X = br.readLine();
 			String Y = br.readLine(); 
-			System.out.println(LCSubstring_2(X,Y,n,m));
+			System.out.println(LCSubstring_4(X,Y,n,m));
 		}
 
 	}
