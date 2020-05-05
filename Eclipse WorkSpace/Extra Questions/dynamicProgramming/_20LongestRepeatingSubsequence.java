@@ -23,6 +23,25 @@ public class _20LongestRepeatingSubsequence {
 		}
 		return dp[n][n];
 	}
+	//1d dp matrix approach for printing the length
+	static int dp_1d[] = new int[1001];
+	public static int longestRepeatingSubsequence_2(String X , int n ){
+		for(int j = 0 ; j < n+1 ;j++)
+			dp_1d[j] = 0 ;
+		int diagonalElement ,temp ;
+		for(int i = 1 ;i < n+1 ;i++){
+			diagonalElement = 0 ;
+			for(int j = 1 ; j < n+1 ;j++){
+				temp = dp_1d[j];
+				if(X.charAt(i-1) == X.charAt(j-1) && i != j )
+					dp_1d[j] = 1 + diagonalElement;
+				else 
+					dp_1d[j] = Math.max(dp_1d[j],dp_1d[j-1]);
+				diagonalElement = temp;
+			}
+		}
+		return dp_1d[n];
+	}
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int testCase = Integer.parseInt(br.readLine());
@@ -30,7 +49,7 @@ public class _20LongestRepeatingSubsequence {
 		for(int t = 0 ;t < testCase ; t++){
 			int n = Integer.parseInt(br.readLine());
 			String X = br.readLine();
-			System.out.println(longestRepeatingSubsequence(X,n));
+			System.out.println(longestRepeatingSubsequence_2(X,n));
 		}
 	}
 }
