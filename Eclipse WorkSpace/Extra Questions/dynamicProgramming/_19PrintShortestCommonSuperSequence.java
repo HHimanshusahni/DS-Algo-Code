@@ -1,7 +1,7 @@
 package dynamicProgramming;
 import java.io.*;
 //https://leetcode.com/problems/shortest-common-supersequence/
-//https://www.youtube.com/watch?v=VDhRg-ZJTuc&list=PL_z_8CaSLPWekqhdCPmFohncHwz8TY2Go&index=30
+//https://www.geeksforgeeks.org/print-shortest-common-supersequence/
 public class _19PrintShortestCommonSuperSequence {
 	//This problem is similar to the printing the LCS problem
 	public static String shortestCommonSupersequence(String str1, String str2) {
