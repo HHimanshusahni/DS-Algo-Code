@@ -1,6 +1,7 @@
 package dynamicProgramming;
 import java.io.*;
 import java.util.Arrays;
+//https://www.geeksforgeeks.org/palindrome-partitioning-dp-17/
 //https://practice.geeksforgeeks.org/problems/palindromic-patitioning/0
 //The problem is similar to matrix chain multiplication
 public class _24PalindromePartitioning {
@@ -91,12 +92,45 @@ public class _24PalindromePartitioning {
 		}
 		return true;
 	} 
+	//Bottom Approach Time Complexity : O(n ^4)
+	//dp array we are using is global
+	public static int palindromePartition_bottomUp(String s){
+		int n = s.length();
+		for(int x = 0 ; x < n;x++)
+			dp[x][x] = 0;
+		for(int length = 1 ;length < n  ;length++){
+			for(int i = 0;i <= n - length -1 ; i++){
+				int j = i + length;
+				if(isPalindrome(s,i,j))
+					dp[i][j] = 0;
+				else{
+					dp[i][j] = Integer.MAX_VALUE;
+					for(int k = i ;k < j ;k++){
+						int tempAns = dp[i][k] + dp[k+1][j]+1;
+						dp[i][j] = Math.min(dp[i][j], tempAns);
+					}
+				}
+			}
+		}
+		
+		
+//		for(int i = 0 ;i < n;i++){
+//			for(int j = 0 ;j < n  ;j++){
+//				System.out.print(dp[i][j]+" ");
+//			}
+//			System.out.println();
+//		}
+//		
+		return dp[0][n-1];
+		
+	}
 	public static void main(String[]args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int testCase = Integer.parseInt(br.readLine());
 		for(int t = 0 ;t < testCase; t++){
 			String s = br.readLine();
-			System.out.println(palindromePartition_3(s,0,s.length()-1));
+//			System.out.println(palindromePartition_3(s,0,s.length()-1));
+			System.out.println(palindromePartition_bottomUp(s));
 		}
 	}
 }
