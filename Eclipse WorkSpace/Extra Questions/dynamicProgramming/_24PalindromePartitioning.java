@@ -124,13 +124,51 @@ public class _24PalindromePartitioning {
 		return dp[0][n-1];
 		
 	}
+	
+	//Approach 
+	//O(n^3),by finding string is palindrome or not in O(n^2)time in the above approach ==> O(n^3)+O(n^2) = O(n^3)
+	//We can use the longest palindromic substring dp approach to find the substring is palindrome or not
+	public static int palindromePartition_5(String s){
+		int n = s.length();
+		int dp[][] = new int[n][n];
+		boolean palindrome[][] = new boolean[n][n];
+		//for String of length 1
+		for(int i = 0 ;i < n;i++){
+			dp[i][i] = 0; // Because one length string require no partitioning
+			palindrome[i][i] = true; //one length string is a palindrome			
+		}
+		int tempAns ;
+		for(int length = 2;length <= n ;length++){
+
+			for(int i = 0;i < n - length +1 ;i++){
+				int j  = i + length -1;
+				if(length == 2){
+					palindrome[i][j] = s.charAt(i) == s.charAt(j);
+				}else{
+					palindrome[i][j] = (s.charAt(i) == s.charAt(j) && palindrome[i+1][j-1]);
+				}
+				if(palindrome[i][j])
+					dp[i][j] = 0;
+				else{
+					dp[i][j] = Integer.MAX_VALUE;
+					for(int k = i ; k <= j-1;k++){
+						tempAns = dp[i][k]+dp[k+1][j]+1;
+						dp[i][j] = Math.min(dp[i][j],tempAns);
+					}
+				}
+			}
+		}
+	
+		return dp[0][n-1];
+	}
+	
 	public static void main(String[]args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int testCase = Integer.parseInt(br.readLine());
 		for(int t = 0 ;t < testCase; t++){
 			String s = br.readLine();
 //			System.out.println(palindromePartition_3(s,0,s.length()-1));
-			System.out.println(palindromePartition_bottomUp(s));
+			System.out.println(palindromePartition_5(s));
 		}
 	}
 }
