@@ -117,7 +117,7 @@ public class _25BooleanParenthesization {
 	
 	
 	
-	//Memoization approach 3d dp solution
+	//Memoization approach 3d dp solution Execution time 1.26
 	static int dp[][][] = new int[101][101][2];
 	public static int noOfWays_3(String s , int i , int j , boolean isTrue){
 		for(int x = 0 ;x <=j ;x++){
@@ -181,6 +181,53 @@ public class _25BooleanParenthesization {
 		}
 		return  dp[i][j][z] = ans;
 	}
+	//Bottom up Approach Execution time 0.86
+	public static int noOfWays_4(String s){
+		int n = s.length();
+		int dp[][][] = new int[n][n][2];// 0 corresponds to false and 1 corresponds to true
+		//For length 1 we are considering only true / false values
+		for(int i = 0 ;i < n ;i = i + 2){
+			if(s.charAt(i) == 'T'){
+				dp[i][i][1] = 1 ;
+				dp[i][i][0] = 0 ;
+			}else{
+				dp[i][i][1] = 0;
+				dp[i][i][0] = 1;
+			}
+		}
+		//we are considering the symbols
+		for(int l = 3  ; l <= n ; l = l + 2){
+			for(int i = 0 ; i < n - l + 1;i = i + 2){
+				int j = i + l - 1;
+				int tempAns0 = 0 , tempAns1 = 0;
+				dp[i][j][0] = 0;
+				dp[i][j][1] = 0;
+				for(int k = i + 1;k < n ; k  = k + 2){
+					int lT = dp[i][k-1][1];
+					int lF = dp[i][k-1][0];
+					int rT = dp[k + 1][j][1];
+					int rF = dp[k+1][j][0];
+					char ch = s.charAt(k);
+					if(ch == '&'){
+						tempAns1 = lT * rT;
+						tempAns0 = lF * rF + lT * rF + lF * rT  ;
+					}else if(ch == '^'){
+						tempAns1 = lF * rT + lT * rF;
+						tempAns0 = lF * rF + lT * rT;
+					}else if(ch == '|'){
+						tempAns1 = lT * rT + lF * rT + lT * rF;
+						tempAns0 = lF * rF;
+					}
+					dp[i][j][1] = (dp[i][j][1]+tempAns1)%1003 ;
+					dp[i][j][0] = (dp[i][j][0]+tempAns0)%1003 ;
+					
+				}
+			}
+		}
+
+		return dp[0][n-1][1];
+
+	}
 	
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -189,7 +236,8 @@ public class _25BooleanParenthesization {
 			int n = Integer.parseInt(br.readLine());
 			String s = br.readLine();
 //			map.clear();
-			System.out.println(noOfWays_3(s,0,n - 1,true));
+//			System.out.println(noOfWays_4(s,0,n - 1,true));
+			System.out.println(noOfWays_4(s));
 		}
 
 	}
