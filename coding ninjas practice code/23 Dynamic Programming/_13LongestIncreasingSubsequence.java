@@ -1,11 +1,14 @@
 import java.io.*;
 import java.util.*;
 public class _13LongestIncreasingSubsequence{
-	//Recursive Approach Exponential  time 
-	public static int lis(int arr[]) {
-		return lis(arr,arr.length - 1);
-	}
-	public static int lis(int arr[],int i ){
+	//Recursive Approach Exponential  time
+    static int largest ;
+	public static int lis_Rec(int arr[]) {
+		largest = 1;
+        lis_1(arr,arr.length - 1);
+		return largest;
+    }
+	public static int lis_1(int arr[],int i ){
 		//Base Case
 		if(i == 0)
 			return 1;
@@ -13,22 +16,29 @@ public class _13LongestIncreasingSubsequence{
 		int max = 1,current = 1;
 		int j = i - 1;
 		while(j >= 0){
-			current = lis(arr,j);
-			if(arr[j] < arr[i])
+			current = lis_1(arr,j);
+			if(arr[j] < arr[i]){
 				current += 1 ;
-			max = Integer.max(current , max);
-				j--;
+			    max = Integer.max(current , max);
+            }
+            j--;
 		}
+        if(max > largest)
+            largest = max;
 		return max;
 	}
 
 	//Memoization
 	static int dp[] = new int[1001];
-	public static int lis_2(int arr[]) {
+	public static int lis_Mem(int arr[]) {
 		Arrays.fill(dp,0,arr.length,-1);
-		return lis_2(arr,arr.length - 1);
+	    lis_2(arr,arr.length - 1);
+        int max = 1;
+        for(int i = 0 ;i < arr.length;i++)
+            max = Math.max(dp[i],max);
+        return max;
 	}
-	public static int lis_2(int arr[],int i ){
+    public static int lis_2(int arr[],int i ){
 		//Base Case
 		if(i == 0)
 			return 1;
@@ -38,11 +48,12 @@ public class _13LongestIncreasingSubsequence{
 		int max = 1,current = 1;
 		int j = i - 1;
 		while(j >= 0){
-			current = lis_2(arr,j);
-			if(arr[j] < arr[i])
+            current = lis_2(arr,j);
+			if(arr[j] < arr[i]){   
 				current += 1 ;
-			max = Integer.max(current , max);
-				j--;
+			    max = Integer.max(current , max);
+            }
+                j--;
 		}
 		return dp[i] = max;
 	}
