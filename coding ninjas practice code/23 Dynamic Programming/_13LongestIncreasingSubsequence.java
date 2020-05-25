@@ -57,6 +57,21 @@ public class _13LongestIncreasingSubsequence{
 		}
 		return dp[i] = max;
 	}
+	//Bottom Up dp approach O(n^2)
+	public static int lis_3(int arr[]){
+		int dp[] = new int[arr.length];
+		int largest = 1;
+		dp[0] = 1;
+		for(int i = 1 ;i < dp.length ;i++){
+			dp[i] = 1;
+			for(int j = i - 1 ;j >= 0 ; j--){
+				if(arr[j] < arr[i])
+					dp[i] = Math.max(dp[i],dp[j]+1);
+			}
+			largest = Math.max(largest,dp[i]);
+		}
+		return largest;
+	}
 	public static void main(String[]args)throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
@@ -64,7 +79,7 @@ public class _13LongestIncreasingSubsequence{
 		int arr[] = new int[n];
 		for(int i = 0 ;i < n ;i++)
 			arr[i] = Integer.parseInt(strArr[i]);
-		System.out.println(lis_2(arr));
+		System.out.println(lis_3(arr));
 		
 	}
 }
